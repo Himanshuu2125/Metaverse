@@ -1,0 +1,209 @@
+/* Font definitions */
+.orbitron {
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Exo 2', sans-serif;
+    background: linear-gradient(135deg, #0c0d15 0%, #16182b 100%);
+    color: #ffffff;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.vanta-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.glow {
+    text-shadow: 0 0 10px #00eeff, 0 0 20px #008cff;
+}
+
+.neon-text {
+    color: #ffffff;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #008cff, 0 0 20px #008cff, 0 0 25px #008cff, 0 0 30px #008cff;
+}
+
+.neon-box {
+    border: 1px solid rgba(0, 142, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 140, 255, 0.5), inset 0 0 15px rgba(0, 140, 255, 0.3);
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.neon-box:hover {
+    box-shadow: 0 0 25px rgba(0, 217, 255, 0.8), inset 0 0 20px rgba(0, 200, 255, 0.5);
+    transform: translateY(-5px);
+}
+
+.input-field {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(0, 142, 255, 0.5);
+    color: #e0f7ff;
+    padding: 12px 20px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #00eeff;
+    box-shadow: 0 0 15px rgba(0, 238, 255, 0.5);
+}
+
+.btn-neon {
+    background: linear-gradient(90deg, #0055ff 0%, #00aaff 50%, #0055ff 100%);
+    color: white;
+    font-weight: 600;
+    padding: 12px 30px;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background-size: 200% auto;
+    transition: all 0.3s ease;
+}
+
+.btn-neon:hover {
+    background-position: right center;
+    box-shadow: 0 0 20px rgba(0, 170, 255, 0.7);
+    transform: translateY(-3px);
+}
+
+.holographic-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.holographic-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(0, 170, 255, 0.1), rgba(138, 43, 226, 0.1), rgba(0, 170, 255, 0.1));
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.holographic-card:hover {
+    transform: translateY(-10px) rotateX(5deg);
+}
+
+.metaverse-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-1 {
+    animation-delay: 0s;
+}
+
+.floating-2 {
+    animation-delay: 2s;
+}
+
+.floating-3 {
+    animation-delay: 4s;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0c0d15;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #0055ff, #00aaff);
+    border-radius: 5px;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #0055ff, #00aaff, #00f7ff, #0055ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 300% auto;
+    animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% center;
+    }
+
+    50% {
+        background-position: 100% center;
+    }
+
+    100% {
+        background-position: 0% center;
+    }
+}
+
+.particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(0, 170, 255, 0.6);
+    box-shadow: 0 0 10px rgba(0, 170, 255, 0.8);
+}
+
+@keyframes meteor-fall {
+    0% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(300px, 300px) rotate(45deg);
+        opacity: 0;
+    }
+}

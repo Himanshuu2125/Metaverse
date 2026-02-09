@@ -1,0 +1,194 @@
+/* SideMenu.css */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+
+.side-menu-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 2000;
+    /* High z-index to be above Canvas */
+    pointer-events: none;
+    /* Allow clicking through empty space */
+}
+
+/* Toggle Button */
+.menu-toggle-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(0, 142, 255, 0.5);
+    color: #00eeff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 140, 255, 0.3);
+    overflow: hidden;
+    z-index: 2002;
+}
+
+.menu-toggle-btn:hover {
+    background: rgba(15, 23, 42, 1);
+    box-shadow: 0 0 20px rgba(0, 238, 255, 0.6);
+    transform: scale(1.05);
+    border-color: #00eeff;
+}
+
+.menu-toggle-btn i {
+    transition: transform 0.3s ease;
+}
+
+/* Arrow direction is handled by changing icon class in JSX */
+
+/* Sidebar */
+.side-menu {
+    position: absolute;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background: rgba(12, 13, 21, 0.95);
+    backdrop-filter: blur(15px);
+    border-right: 1px solid rgba(0, 142, 255, 0.3);
+    box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+    padding: 80px 20px 20px 20px;
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 2001;
+}
+
+.side-menu.open {
+    left: 0;
+    box-shadow: 0 0 50px rgba(0, 140, 255, 0.2);
+}
+
+/* Menu Items */
+.menu-items {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    flex-grow: 1;
+}
+
+.menu-item {
+    margin-bottom: 15px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.3s ease;
+}
+
+.side-menu.open .menu-item {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Stagger transition delays for menu items */
+.side-menu.open .menu-item:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.side-menu.open .menu-item:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.side-menu.open .menu-item:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.side-menu.open .menu-item:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.menu-btn {
+    width: 100%;
+    padding: 15px 20px;
+    background: linear-gradient(90deg, rgba(0, 85, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+    border: 1px solid rgba(0, 142, 255, 0.2);
+    border-left: 3px solid #0055ff;
+    color: #e0f7ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 0 10px 10px 0;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.menu-btn i {
+    width: 30px;
+    color: #00aaff;
+    transition: all 0.3s ease;
+}
+
+.menu-btn:hover {
+    background: linear-gradient(90deg, rgba(0, 85, 255, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+    padding-left: 25px;
+    border-left-color: #00eeff;
+    box-shadow: 0 0 15px rgba(0, 140, 255, 0.2);
+    text-shadow: 0 0 8px rgba(0, 238, 255, 0.5);
+}
+
+.menu-btn:hover i {
+    color: #00eeff;
+    transform: scale(1.2);
+}
+
+.menu-header {
+    border-bottom: 1px solid rgba(0, 142, 255, 0.3);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.menu-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    color: #fff;
+    text-shadow: 0 0 10px #008cff;
+    margin: 0;
+}
+
+.menu-bottom {
+    margin-top: auto;
+    border-top: 1px solid rgba(0, 142, 255, 0.3);
+    padding-top: 20px;
+}
+
+.logout-btn {
+    background: linear-gradient(90deg, rgba(255, 0, 85, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+    border-left: 3px solid #ff0055;
+    margin-bottom: 15px;
+}
+
+.logout-btn i {
+    color: #ff0055;
+}
+
+.logout-btn:hover {
+    background: linear-gradient(90deg, rgba(255, 0, 85, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+    border-left-color: #ff4488;
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
+    text-shadow: 0 0 8px rgba(255, 68, 136, 0.5);
+}
+
+.logout-btn:hover i {
+    color: #ff4488;
+}
+
+.menu-footer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #5f80a0;
+}

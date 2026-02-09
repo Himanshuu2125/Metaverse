@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Environment variables - NEVER commit these
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Firebase Admin SDK key - NEVER commit this
+*.json
+!package.json
+!package-lock.json

@@ -1,0 +1,110 @@
+/* RequestNotification.css */
+.request-notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    pointer-events: none;
+    /* Allow clicking through container */
+}
+
+.request-notification {
+    background: rgba(12, 13, 21, 0.95);
+    border: 1px solid #00eeff;
+    border-radius: 12px;
+    padding: 20px;
+    width: 320px;
+    box-shadow: 0 0 20px rgba(0, 238, 255, 0.2);
+    backdrop-filter: blur(10px);
+    animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: auto;
+    /* Re-enable clicks on notification */
+    position: relative;
+    overflow: hidden;
+}
+
+.request-notification::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #00eeff;
+    box-shadow: 0 0 10px #00eeff;
+}
+
+.notification-content {
+    margin-bottom: 20px;
+}
+
+.notification-title {
+    font-family: 'Orbitron', sans-serif;
+    color: #00eeff;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.notification-message {
+    color: #fff;
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+.notification-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accept-btn {
+    background: #00eeff;
+    color: #000;
+    box-shadow: 0 0 10px rgba(0, 238, 255, 0.3);
+}
+
+.accept-btn:hover {
+    background: #fff;
+    box-shadow: 0 0 15px rgba(0, 238, 255, 0.5);
+}
+
+.decline-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ff3366;
+    border: 1px solid rgba(255, 51, 102, 0.3);
+}
+
+.decline-btn:hover {
+    background: rgba(255, 51, 102, 0.1);
+    border-color: #ff3366;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

@@ -1,0 +1,97 @@
+/* InteractionMenu.css */
+.interaction-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    pointer-events: auto;
+}
+
+.interaction-menu {
+    background: rgba(12, 13, 21, 0.95);
+    border: 1px solid rgba(0, 142, 255, 0.5);
+    border-radius: 16px;
+    padding: 30px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
+    backdrop-filter: blur(10px);
+    animation: fadeInScale 0.3s ease-out;
+}
+
+.interaction-header h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #fff;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px #008cff;
+}
+
+.interaction-header p {
+    color: #5f80a0;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+}
+
+.interaction-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.interaction-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background: linear-gradient(90deg, rgba(0, 85, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+    border: 1px solid rgba(0, 142, 255, 0.3);
+    border-radius: 8px;
+    color: #e0f7ff;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.interaction-btn i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.interaction-btn:hover {
+    background: linear-gradient(90deg, rgba(0, 85, 255, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+    border-color: #00eeff;
+    box-shadow: 0 0 15px rgba(0, 140, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.cancel-btn {
+    margin-top: 10px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #888;
+}
+
+.cancel-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    box-shadow: none;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
