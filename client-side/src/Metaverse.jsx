@@ -75,14 +75,13 @@ export default function Metaverse({ user, setDisconnected }) {
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.code === 'KeyE') {
-                console.log('[DEBUG] E key pressed');
                 const targetId = interactablePlayerIdRef.current;
-                console.log('[DEBUG] Target ID from state:', targetId);
+
 
                 if (targetId && otherPlayersRef.current[targetId]) {
                     // Prevent opening menu if already interacting
                     if (activeInteraction) {
-                        console.log('[META] Cannot interact while busy');
+
                         return;
                     }
 
@@ -104,7 +103,7 @@ export default function Metaverse({ user, setDisconnected }) {
     };
 
     const handleInteractionAction = (type, targetId) => {
-        console.log(`[INTERACTION] Requesting ${type} with ${targetId}`);
+
         if (socketRef.current) {
             socketRef.current.emit('requestInteraction', { targetId, type });
             setRequestStatus('waiting');
@@ -115,7 +114,7 @@ export default function Metaverse({ user, setDisconnected }) {
     };
 
     const handleAcceptRequest = () => {
-        console.log(`[INTERACTION] Accepted request from ${incomingRequest?.requesterName}`);
+
         if (socketRef.current && incomingRequest) {
             socketRef.current.emit('respondToRequest', { requesterId: incomingRequest.requesterId, accepted: true });
         }
@@ -123,7 +122,7 @@ export default function Metaverse({ user, setDisconnected }) {
     };
 
     const handleDeclineRequest = () => {
-        console.log(`[INTERACTION] Declined request`);
+
         if (socketRef.current && incomingRequest) {
             socketRef.current.emit('respondToRequest', { requesterId: incomingRequest.requesterId, accepted: false });
         }
@@ -135,14 +134,14 @@ export default function Metaverse({ user, setDisconnected }) {
         const targetName = targetPlayer ? targetPlayer.name : 'Unknown';
         const targetUid = targetPlayer?.uid;
 
-        console.log(`[META] Interaction started: ${type} with ${targetName}`);
+
 
         // Check if target is already a friend - if so, use friend chat mode for chat interactions
         const isFriendWithTarget = targetUid && friendsRef.current.some(f => f.uid === targetUid);
 
         if (type === 'chat' && isFriendWithTarget) {
             // Convert to friend chat mode
-            console.log('[META] Target is a friend, using friend chat mode');
+
             socketRef.current?.emit('openFriendChat', { friendUid: targetUid });
             setActiveInteraction({
                 type: 'friendChat',
@@ -159,7 +158,7 @@ export default function Metaverse({ user, setDisconnected }) {
     };
 
     const handleInteractionEnded = () => {
-        console.log('[META] Interaction ended');
+
         // Mark as ended to trigger UI transition in ChatOverlay
         setActiveInteraction(prev => prev ? { ...prev, isEnded: true } : null);
     };
@@ -167,37 +166,37 @@ export default function Metaverse({ user, setDisconnected }) {
     //Friend System Handlers
     const handleSendFriendRequest = (targetUid) => {
         if (!socketRef.current || !targetUid) return;
-        console.log('[META] Sending friend request to:', targetUid);
+
         socketRef.current.emit('sendFriendRequest', { targetUid });
         setSentFriendRequests(prev => new Set([...prev, targetUid]));
     };
 
     const handleAcceptFriendRequest = (requesterUid) => {
         if (!socketRef.current) return;
-        console.log('[META] Accepting friend request from:', requesterUid);
+
         socketRef.current.emit('respondToFriendRequest', { requesterUid, accepted: true });
         setFriendRequests(prev => prev.filter(req => req.fromUid !== requesterUid));
     };
 
     const handleDeclineFriendRequest = (requesterUid) => {
         if (!socketRef.current) return;
-        console.log('[META] Declining friend request from:', requesterUid);
+
         socketRef.current.emit('respondToFriendRequest', { requesterUid, accepted: false });
         setFriendRequests(prev => prev.filter(req => req.fromUid !== requesterUid));
     };
 
     const handleFriendsList = (friendsList) => {
-        console.log('[META] Updated friends list:', friendsList);
+
         setFriends(friendsList);
     };
 
     const handleFriendRequestsList = (requests) => {
-        console.log('[META] Updated friend requests:', requests);
+
         setFriendRequests(requests);
     };
 
     const handleFriendRequestReceived = (request) => {
-        console.log('[META] New friend request from:', request.fromName);
+
         setFriendRequests(prev => {
             // Check if request already exists
             if (prev.some(r => r.fromUid === request.fromUid)) return prev;
@@ -206,12 +205,12 @@ export default function Metaverse({ user, setDisconnected }) {
     };
 
     const handleFriendRequestSent = (targetUid) => {
-        console.log('[META] Friend request sent mark:', targetUid);
+
         setSentFriendRequests(prev => new Set([...prev, targetUid]));
     };
 
     const handleFriendAdded = (friend) => {
-        console.log('[META] New friend added:', friend.name);
+
         // Add to friends list
         setFriends(prev => {
             if (prev.some(f => f.uid === friend.uid)) return prev;
@@ -228,7 +227,7 @@ export default function Metaverse({ user, setDisconnected }) {
     };
 
     const handleAlreadyFriends = (uid) => {
-        console.log('[META] Already friends with:', uid);
+
         // Remove from sent requests if it was there
         setSentFriendRequests(prev => {
             const newSet = new Set(prev);
@@ -245,7 +244,7 @@ export default function Metaverse({ user, setDisconnected }) {
             socketId => currentOtherPlayers[socketId].uid === friendUid
         );
 
-        console.log('[META] Opening friend chat with:', friendName);
+
 
         // Directly open friend chat (no request needed)
         if (socketRef.current) {
@@ -272,13 +271,13 @@ export default function Metaverse({ user, setDisconnected }) {
         );
 
         if (!friendSocketId) {
-            console.log('[META] Friend is not online');
+
             setRequestStatus('offline');
             setTimeout(() => setRequestStatus(null), 3000);
             return;
         }
 
-        console.log('[META] Starting call with friend:', friendName);
+
         if (socketRef.current) {
             socketRef.current.emit('requestInteraction', {
                 targetId: friendSocketId,
@@ -291,7 +290,7 @@ export default function Metaverse({ user, setDisconnected }) {
 
     // Friend Chat Handlers
     const handleFriendChatOpened = (data) => {
-        console.log('[META] Friend chat opened, loading', data.messages?.length, 'messages');
+
         // Update active interaction with chat history
         setActiveInteraction(prev => {
             if (prev?.friendUid === data.friendUid) {
@@ -302,7 +301,7 @@ export default function Metaverse({ user, setDisconnected }) {
     };
 
     const handleFriendMessageReceived = (messageData) => {
-        console.log('[META] New friend message:', messageData.message);
+
         // Append message to active chat
         setActiveInteraction(prev => {
             if (prev?.type === 'friendChat' && prev?.friendUid) {
@@ -322,7 +321,7 @@ export default function Metaverse({ user, setDisconnected }) {
     const handleSendFriendMessage = (message) => {
         if (!socketRef.current || !activeInteraction?.friendUid) return;
 
-        console.log('[META] Sending friend message:', message);
+
         socketRef.current.emit('sendFriendMessage', {
             friendUid: activeInteraction.friendUid,
             message: message

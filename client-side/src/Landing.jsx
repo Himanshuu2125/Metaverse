@@ -65,14 +65,12 @@ const Landing = ({ googleUser: googleUserProp, onProfileComplete }) => {
             if (data.success) {
                 setAuthOpen(false);
                 setOtpOpen(true);
-                if (data.message && data.message.includes('console')) {
-                    console.info("Check server console for OTP");
-                }
+
             } else {
                 setError(data.error || 'Failed to send OTP');
             }
         } catch (err) {
-            console.error('OTP Request Error:', err);
+
             setError('Failed to connect to server. Ensure backend is running.');
         } finally {
             setIsLoading(false);
@@ -83,7 +81,7 @@ const Landing = ({ googleUser: googleUserProp, onProfileComplete }) => {
     const handleVerifyOtp = async () => {
         setError('');
         setIsLoading(true);
-        console.log('[OTP] Verifying code:', otp);
+
 
         try {
             // Verify OTP on Backend -> Get Custom Token
@@ -93,7 +91,7 @@ const Landing = ({ googleUser: googleUserProp, onProfileComplete }) => {
                 body: JSON.stringify({ email, otp })
             });
             const data = await response.json();
-            console.log('[OTP] Server response:', data);
+
 
             if (!data.success) {
                 setError(data.error || 'Invalid OTP');
@@ -102,9 +100,9 @@ const Landing = ({ googleUser: googleUserProp, onProfileComplete }) => {
             }
 
             // Sign In with that token
-            console.log('[OTP] Signing in with custom token...');
+
             await signInWithCustomToken(auth, data.token);
-            console.log('[OTP] Sign in successful');
+
 
             // If successful, App.jsx will detect user.
             // If the user doesn't have a username, App.jsx will keep Landing mounted 
@@ -120,7 +118,7 @@ const Landing = ({ googleUser: googleUserProp, onProfileComplete }) => {
             setIsLoading(false);
 
         } catch (err) {
-            console.error('[OTP] Process Error:', err);
+
             setError(getAuthErrorMessage(err));
             setIsLoading(false);
         }
@@ -148,19 +146,19 @@ const Landing = ({ googleUser: googleUserProp, onProfileComplete }) => {
             return;
         }
         setIsLoading(true);
-        console.log('[PROFILE] Starting profile completion for:', username);
+
 
         try {
             if (pendingUser || auth.currentUser) {
                 const targetUser = pendingUser || auth.currentUser;
-                console.log('[PROFILE] Updating profile for user:', targetUser.email);
+
 
                 await updateProfile(targetUser, { displayName: username });
-                console.log('[PROFILE] Update successful');
+
 
                 // Force sync user state
                 await targetUser.reload();
-                console.log('[PROFILE] User reloaded');
+
 
                 setProfileCompleteOpen(false);
                 setPendingUser(null);
@@ -174,12 +172,12 @@ const Landing = ({ googleUser: googleUserProp, onProfileComplete }) => {
                     window.location.reload();
                 }, 100);
             } else {
-                console.error('[PROFILE] No user found to update');
+
                 setError('No user found');
                 setIsLoading(false);
             }
         } catch (err) {
-            console.error('[PROFILE] Error:', err);
+
             setError(getAuthErrorMessage(err));
             setIsLoading(false);
         }
@@ -193,7 +191,7 @@ const Landing = ({ googleUser: googleUserProp, onProfileComplete }) => {
             setUsername('');
             setError('');
         } catch (err) {
-            console.error('Error signing out:', err);
+
         }
     };
 

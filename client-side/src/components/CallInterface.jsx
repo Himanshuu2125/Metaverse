@@ -47,7 +47,7 @@ const CallInterface = ({ socket, targetPlayer, onClose, user, isEnded, isInitiat
         };
 
         pc.ontrack = (event) => {
-            console.log('[WEBRTC] Received remote track');
+
             if (isEffectMounted) {
                 setRemoteStream(event.streams[0]);
                 setStatus('Connected');
@@ -55,7 +55,7 @@ const CallInterface = ({ socket, targetPlayer, onClose, user, isEnded, isInitiat
         };
 
         pc.onconnectionstatechange = () => {
-            console.log('[WEBRTC] Connection State:', pc.connectionState);
+
             if (pc.connectionState === 'disconnected' || pc.connectionState === 'closed') {
                 if (isEffectMounted && status === 'Connected') setStatus('Disconnected');
             }
@@ -68,7 +68,7 @@ const CallInterface = ({ socket, targetPlayer, onClose, user, isEnded, isInitiat
                 if (pc.signalingState === 'closed') return;
 
                 if (signal.type === 'offer') {
-                    console.log('[WEBRTC] Processing Offer');
+
                     // Check if we are ready for an offer or if we already have one (collision?)
                     // Simplified: just set remote
                     await pc.setRemoteDescription(new RTCSessionDescription(signal));
@@ -83,18 +83,16 @@ const CallInterface = ({ socket, targetPlayer, onClose, user, isEnded, isInitiat
                         });
                     }
                 } else if (signal.type === 'answer') {
-                    console.log('[WEBRTC] Processing Answer');
+
                     await pc.setRemoteDescription(new RTCSessionDescription(signal));
                 } else if (signal.type === 'candidate') {
                     // console.log('[WEBRTC] Processing Candidate');
                     try {
                         await pc.addIceCandidate(new RTCIceCandidate(signal.candidate));
-                    } catch (e) {
-                        console.error("Error adding ice candidate:", e);
-                    }
+                    } catch (e) { }
                 }
             } catch (err) {
-                console.error('[WEBRTC] Signaling error during processing:', err);
+
                 // Do not update status to error immediately, maybe retry or just log
             }
         };
@@ -123,7 +121,7 @@ const CallInterface = ({ socket, targetPlayer, onClose, user, isEnded, isInitiat
             if (isMediaReady.current) {
                 processQueue();
             } else {
-                console.log('[WEBRTC] Queued signal (media not ready):', signal.type);
+
             }
         };
 
@@ -142,24 +140,17 @@ const CallInterface = ({ socket, targetPlayer, onClose, user, isEnded, isInitiat
                 setLocalStream(stream);
                 if (status === 'Connecting...') setStatus('Calling...');
 
-                // Add tracks safely
                 if (pc.signalingState !== 'closed') {
                     stream.getTracks().forEach(track => {
                         try {
                             pc.addTrack(track, stream);
-                        } catch (e) {
-                            console.error("Error adding track:", e);
-                        }
+                        } catch (e) { }
                     });
 
-                    // Mark as ready
                     isMediaReady.current = true;
-
-                    // Start processing queue (for incoming Offer/Answer/Candidates)
                     processQueue();
 
                     if (isInitiator) {
-                        console.log('[WEBRTC] Creating offer (Initiator)');
                         try {
                             const offer = await pc.createOffer();
                             if (pc.signalingState !== 'closed') {
@@ -169,16 +160,12 @@ const CallInterface = ({ socket, targetPlayer, onClose, user, isEnded, isInitiat
                                     signal: { type: 'offer', sdp: offer.sdp }
                                 });
                             }
-                        } catch (offerErr) {
-                            console.error("Error creating offer:", offerErr);
-                        }
+                        } catch (offerErr) { }
                     }
                 } else {
                     stream.getTracks().forEach(track => track.stop());
                 }
-
             } catch (err) {
-                console.error('[WEBRTC] Media error:', err);
                 if (isEffectMounted) setStatus('Microphone access denied');
             }
         };
@@ -212,10 +199,7 @@ const CallInterface = ({ socket, targetPlayer, onClose, user, isEnded, isInitiat
             // Explicit play call and handle promise
             const playPromise = remoteVideoRef.current.play();
             if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.error("Audio play failed:", error);
-                    // Add User Interaction Handler if needed (though usually fine in call flow)
-                });
+                playPromise.catch(() => { });
             }
         }
     }, [remoteStream]);

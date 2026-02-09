@@ -24,7 +24,7 @@ export default function App() {
         const hasValidUsername = displayName && !displayName.includes(' ') && displayName.length > 0;
 
         if (!hasValidUsername) {
-          console.log('[AUTH] User needs profile completion, displayName:', displayName);
+
           setNeedsProfileCompletion(true);
         } else {
           setNeedsProfileCompletion(false);

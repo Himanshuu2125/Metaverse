@@ -16,9 +16,7 @@ const firebaseConfig = {
 };
 
 // Validate required config
-if (!firebaseConfig.apiKey) {
-    console.error('Firebase config missing! Make sure .env file exists with VITE_FIREBASE_* variables');
-}
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

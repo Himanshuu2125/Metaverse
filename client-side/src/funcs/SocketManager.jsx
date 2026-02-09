@@ -44,7 +44,7 @@ export default function SocketManager({
         try {
           token = await user.getIdToken();
         } catch (e) {
-          console.error("Error getting token:", e);
+
         }
       }
 
@@ -53,13 +53,13 @@ export default function SocketManager({
       });
 
       socket.current.on('connect', () => {
-        console.log('Connected to server:', socket.current.id);
+
         if (onSocketReady) onSocketReady(socket.current);
       });
 
       // Handle initial position from server (Persistence Check)
       socket.current.on('initialPosition', (posData) => {
-        console.log('[CLIENT] Received initial position:', posData.coords);
+
         if (activePlayerRef?.current && orbiterRef?.current && camera) {
           const { x, y, z } = posData.coords;
 
@@ -90,7 +90,7 @@ export default function SocketManager({
 
       // ... (disconnect logic)
       socket.current.on('disconnect', (reason) => {
-        console.log(`[CLIENT] Disconnected: ${reason}`);
+
         if (reason === 'io server disconnect') {
           if (setDisconnected) {
             setDisconnected(true);
@@ -102,30 +102,30 @@ export default function SocketManager({
 
       // Server Full handler
       socket.current.on('serverFull', ({ message }) => {
-        console.warn('[CLIENT] connection denied:', message);
+
         if (setDisconnected) setDisconnected(message);
       });
 
       // Rate limit exceeded handler
       socket.current.on('rateLimitExceeded', ({ event, message }) => {
-        console.warn(`[RATE_LIMIT] ${message || 'You are doing that too fast. Please slow down.'}`);
+
         // The message will appear in console - could be extended to show toast in UI
       });
 
       // Connection error handler
       socket.current.on('connect_error', (error) => {
-        console.error('[CLIENT] Connection error:', error.message);
+
         // Could show a toast notification here if needed
       });
 
       // Interaction Events
       socket.current.on('incomingRequest', (request) => {
-        console.log('[CLIENT] Incoming request:', request);
+
         if (setIncomingRequest) setIncomingRequest(request);
       });
 
       socket.current.on('interactionStarted', ({ withId, type, initiator }) => {
-        console.log(`[CLIENT] Interaction started with ${withId} (${type}), initiator: ${initiator}`);
+
 
         if (onInteractionStarted) {
           onInteractionStarted({ withId, type, initiator });
@@ -135,7 +135,7 @@ export default function SocketManager({
       });
 
       socket.current.on('requestDeclined', (data) => {
-        console.log('[CLIENT] Request declined');
+
         const reason = data?.reason || 'Player declined your request.';
 
         if (setRequestStatus) {
@@ -148,7 +148,7 @@ export default function SocketManager({
       });
 
       socket.current.on('interactionEnded', () => {
-        console.log('[CLIENT] Interaction ended');
+
         if (onInteractionEnded) {
           onInteractionEnded();
         } else if (onInteractionStarted) {
@@ -158,53 +158,53 @@ export default function SocketManager({
 
       // Friend System Events
       socket.current.on('friendsList', (friendsList) => {
-        console.log('[CLIENT] Received friends list:', friendsList);
+
         if (onFriendsList) onFriendsList(friendsList);
       });
 
       socket.current.on('friendRequestsList', (requests) => {
-        console.log('[CLIENT] Received friend requests list:', requests);
+
         if (onFriendRequestsList) onFriendRequestsList(requests);
       });
 
       socket.current.on('friendRequestReceived', (request) => {
-        console.log('[CLIENT] Friend request received from:', request.fromName);
+
         if (onFriendRequestReceived) onFriendRequestReceived(request);
       });
 
       socket.current.on('friendRequestSent', (data) => {
-        console.log('[CLIENT] Friend request sent to:', data.targetUid);
+
         if (onFriendRequestSent) onFriendRequestSent(data.targetUid);
       });
 
       socket.current.on('friendAdded', (friend) => {
-        console.log('[CLIENT] New friend added:', friend.name);
+
         if (onFriendAdded) onFriendAdded(friend);
       });
 
       socket.current.on('friendRequestAccepted', (data) => {
-        console.log('[CLIENT] Friend request accepted by:', data.name);
+
         if (onFriendRequestAccepted) onFriendRequestAccepted(data);
       });
 
       socket.current.on('alreadyFriends', (data) => {
-        console.log('[CLIENT] Already friends with:', data.uid);
+
         if (onAlreadyFriends) onAlreadyFriends(data.uid);
       });
 
       // Friend Chat Events
       socket.current.on('friendChatOpened', (data) => {
-        console.log('[CLIENT] Friend chat opened with:', data.friendUid, 'messages:', data.messages?.length);
+
         if (onFriendChatOpened) onFriendChatOpened(data);
       });
 
       socket.current.on('friendMessageReceived', (messageData) => {
-        console.log('[CLIENT] Friend message received from:', messageData.senderName);
+
         if (onFriendMessageReceived) onFriendMessageReceived(messageData);
       });
 
       socket.current.on('friendChatHistory', (data) => {
-        console.log('[CLIENT] Friend chat history received:', data.messages?.length);
+
         if (onFriendChatHistory) onFriendChatHistory(data);
       });
 
@@ -296,7 +296,7 @@ export default function SocketManager({
           delete copy[playerId];
           return copy;
         });
-        console.log(`[CLIENT] Player disconnected: ${playerId}`);
+
       });
     };
 

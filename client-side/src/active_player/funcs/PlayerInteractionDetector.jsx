@@ -81,7 +81,7 @@ function PlayerInteractionDetector({ otherPlayers, setOtherPlayers, setInteracta
 
             // Only update state if ID changed
             if (newClosestId !== lastInteractableId.current) {
-                console.log(`[INTERACTION] Changed target: ${lastInteractableId.current} -> ${newClosestId}`);
+
                 lastInteractableId.current = newClosestId;
                 if (setInteractablePlayerId) {
                     setInteractablePlayerId(newClosestId);

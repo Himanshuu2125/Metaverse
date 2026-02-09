@@ -14,7 +14,7 @@ const SideMenu = ({ friendRequests = [], friends = [], onToggleFriendRequests, o
         try {
             await signOut(auth);
         } catch (error) {
-            console.error("Error signing out:", error);
+
         }
     };
 
@@ -60,7 +60,7 @@ const SideMenu = ({ friendRequests = [], friends = [], onToggleFriendRequests, o
                         <li key={index} className="menu-item">
                             <button
                                 className="menu-btn"
-                                onClick={item.onClick || (() => console.log(`Clicked ${item.label}`))}
+                                onClick={item.onClick}
                                 style={{ position: 'relative' }}
                             >
                                 <i className={item.icon}></i>
