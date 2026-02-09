@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Vector3, Quaternion } from 'three';
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || (import.meta.env.MODE === 'production' ? window.location.origin : 'http://localhost:3000');
 
 export default function SocketManager({
   user,

@@ -1,0 +1,13 @@
+node_modules
+.env
+.git
+.gitignore
+client-side/node_modules
+client-side/dist
+server-side/node_modules
+*.md
+Dockerfile
+docker-compose.yml
+.agent
+.gemini
+brain

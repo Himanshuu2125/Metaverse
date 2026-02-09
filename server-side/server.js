@@ -18,7 +18,12 @@ admin.initializeApp({
 
 const app = express();
 const cors = require('cors');
+const path = require('path');
+
 app.use(bodyParser.json());
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../client-side/dist')));
 
 // ==========================================
 // CORS CONFIGURATION
@@ -1027,7 +1032,12 @@ io.on('connection', (socket) => {
   // Standard Socket.IO practice is just to add your listener.
 
 
+});
 
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client-side/dist/index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
