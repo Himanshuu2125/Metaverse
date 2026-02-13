@@ -1,4 +1,5 @@
 import { Plane } from '@react-three/drei'
+import MetaverseFloor from './MetaverseFloor';
 import * as THREE from 'three'
 import { useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
@@ -117,9 +118,7 @@ export default function NonPlayers() {
       <directionalLight position={[30, 30, 30]} intensity={0.5} />
       <directionalLight position={[-30, 30, -30]} intensity={0.5} />
       <SkySphere />
-      <Plane args={[10000, 10000]} rotation={[-Math.PI / 2, 0, 0]}>
-        <meshStandardMaterial color="#6B8E23" />
-      </Plane>
+      <MetaverseFloor />
     </>
   )
 }
